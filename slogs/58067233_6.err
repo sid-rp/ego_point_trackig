@@ -1,0 +1,80 @@
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
+Traceback (most recent call last):
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 532, in <module>
+    main()
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 526, in main
+    phalp_instance = PHALP(args.output_dir, args.data_path, args.mesh_path, args.frames_path,
+  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_3D.py", line 251, in __init__
+    from depth_anything.dpt import DepthAnything
+ModuleNotFoundError: No module named 'depth_anything'
