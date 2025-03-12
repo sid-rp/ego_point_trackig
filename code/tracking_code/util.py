@@ -15,6 +15,7 @@ from trimesh import path
 import os
 import math
 from pytorch3d.transforms import matrix_to_quaternion, quaternion_to_matrix
+import json
 rescale_scores = json.load(open(os.path.join(os.path.dirname(__file__), '../../data/rescale_scores.json')))
 
 def is_segment_intersecting_mesh_1(segment_start, segment_end, mesh, threshold=0.1):
