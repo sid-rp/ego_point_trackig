@@ -14,163 +14,86 @@ from pathlib import Path
 import cv2
 import json
 import requests
+import tarfile
+from PIL import Image
+import cv2
+import numpy as np
+from io import BytesIO
 
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 
-rescale_scores = {
-'P24_05': 0.5391126206,
- 'P03_04': 0.9744356799,
- 'P01_14': 1.265822785,
- 'P30_107': 0.8297412452,
-    'P05_08': 0.6808696067,
-    'P05_08': 0.6808696067,
-    'P06_05': 0.5479392007,
-    'P24_08': 0.573,
-    'P14_05': 0.639,
-    'P07_10': 0.7000619555,
-    'P07_101': 0.8526057764,
-    'P09_14': 0.807294715,
-    'P11_106': 0.7854287263,
-    'P12_04': 0.747035204,
- 'P05_08': 0.6808696067,
-    'P06_05': 0.5479392007,
-    'P24_08': 0.573,
-    'P14_05': 0.639,
-    'P07_10': 0.7000619555,
-    'P07_101': 0.8526057764,
-    'P09_14': 0.807294715,
-    'P11_106': 0.7854287263,
-    'P12_04': 0.747035204,
-    'P12_101': 0.4651162791,
-    'P12_101': 0.4651162791,
-    'P19_04': 0.5028916269,
-    'P22_114': 0.8423322495,
-    'P23_04': 0.6576783953,
-    'P23_112': 0.6657656638,
-    'P24_05': 0.5391126206,
-    'P25_05': 0.7407407407,
-    'P26_124': 0.9245177484,
- 'P12_101': 0.4651162791,
-    'P19_04': 0.5028916269,
-    'P22_114': 0.8423322495,
-    'P23_04': 0.6576783953,
-    'P23_112': 0.6657656638,
-    'P24_05': 0.5391126206,
-    'P25_05': 0.7407407407,
-    'P26_124': 0.9245177484,
- 'P28_103': 1.143961883,
- 'P10_04': 0.7604562738,
- 'P30_05': 0.6166178511,
- 'P06_101': 0.7367947953,
- 'P04_05': 0.6309944472,
- 'P06_103': 0.9900990099,
- 'P35_109': 0.956937799,
- 'P37_103': 0.4807692308,
- 'P04_11': 0.5494505495,
- 'P04_21': 0.6872852234,
- 'P04_109': 0.5025125628,
- 'P02_07': 1.324503311,
- 'P28_14': 1.369863014,
- 'P22_01': 0.8240626288,
- 'P15_02': 0.5714285714,
- 'P04_26': 0.422832981,
- 'P01_09': 1.19760479,
- 'P02_109': 1.265822785,
- 'P02_101': 0.9615384615,
- 'P24_08': 0.573,
- 'P23_05': 0.8968609865,
- 'P28_110': 0.66,
- 'P20_03': 1.321003963,
- 'P11_105': 1.030927835,
- 'P08_09': 0.6622516556,
- 'P22_07': 0.826446281,
- 'P03_113': 0.5899705015,
- 'P04_02': 0.9661835749,
- 'P25_107': 0.4545454545,
- 'P02_130': 1.03626943,
- 'P08_16': 0.4424778761,
- 'P30_101': 0.5221932115,
- 'P18_07': 0.6993006993,
- 'P01_103': 1.19047619,
- 'P01_05': 1.19760479,
- 'P03_03': 0.625,
- 'P11_102': 1.149425287,
- 'P06_107': 0.7874015748,
- 'P03_24': 0.7633587786,
- 'P37_101': 0.9174311927,
- 'P06_12': 1.183431953,
- 'P02_107': 0.9950248756,
- 'P03_17': 0.4975124378,
- 'P01_104': 0.826446281,
- 'P11_16': 0.9049773756,
- 'P06_13': 0.583090379,
- 'P02_122': 1.27388535,
- 'P06_11': 1.069518717,
- 'P28_109': 1.360544218,
- 'P03_101': 0.8333333333,
- 'P02_124': 0.8403361345,
- 'P03_05': 0.4618937644,
- 'P04_114': 0.4608294931,
- 'P28_06': 0.9259259259,
- 'P03_123': 0.4535147392,
- 'P02_121': 0.8695652174,
- 'P27_101': 0.9708737864,
- 'P03_13': 0.7434944238,
- 'P06_07': 0.487804878,
- 'P26_110': 0.5617977528,
- 'P03_112': 0.9433962264,
- 'P30_112': 0.4184100418,
- 'P04_33': 0.7042253521,
- 'P02_135': 1.104972376,
- 'P02_03': 1.219512195,
- 'P04_101': 0.6756756757,
- 'P12_02': 1.069518717,
- 'P02_102': 1.388888889,
- 'P05_01': 0.6006006006,
- 'P01_03': 1.739130435,
- 'P22_117': 0.9302325581,
- 'P17_01': 1.098901099,
- 'P06_09': 0.6269592476,
- 'P03_11': 0.6666666667,
- 'P28_101': 1.156069364,
- 'P06_110': 0.4210526316,
- 'P04_04': 0.9852216749,
- 'P28_13': 0.3853564547,
- 'P30_111': 1.209189843,
- 'P18_06': 0.4140786749,
- 'P28_113': 1.324503311,
- 'P03_23': 0.4938271605,
- 'P11_101': 0.5319148936,
- 'P32_01': 0.5698005698,
- 'P04_121': 0.4246284501,
-    'P04_110': 0.7547169811,
-    'P04_110': 0.7547169811,
-    'P08_09': 0.6622516556,
-    'P06_01': 0.7299270073,
-    'P06_07': 0.487804878,
- 'P04_110': 0.7547169811,
-    'P08_09': 0.6622516556,
-    'P06_01': 0.7299270073,
-    'P06_07': 0.487804878,
- 'P12_03': 0.7246376812,
- 'P04_25': 0.6309148265,
- 'P08_21': 0.701754386,
- 'P02_128': 1.081081081,
- 'P04_03': 0.9302325581,
- 'P14_05': 0.639,
- 'P23_02': 0.7490636704,
- 'P28_112': 1.526717557,
- 'P06_01': 0.7299270073,
- 'P07_08': 0.826446281,
- 'P11_103': 0.7407407407,
- 'P02_132': 1.307189542,
- 'P06_14': 0.8583690987,
- 'P02_01': 0.9478672986,
- 'P18_03': 0.8163265306,
- 'P06_102': 0.625,
- 'P01_01': 1.234567901,
- 'P35_105': 0.826446281
- }
+rescale_scores = json.load(open(os.path.join(os.path.dirname(__file__), '../../../data/rescale_scores.json')))
+boxes_scales = {
+    "P24_05": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P03_04": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P01_14": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P30_107": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P05_08": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P12_101": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P28_103": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P10_04": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P30_05": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_101": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_05": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_103": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P35_109": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P37_103": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_11": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_21": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_109": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_07": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P28_14": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P22_01": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P15_02": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_26": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P01_09": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_109": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_101": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P24_08": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P23_05": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P28_110": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P20_03": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P11_105": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P08_09": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P22_07": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P03_113": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_02": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P25_107": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_130": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P08_16": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P30_101": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P18_07": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P01_103": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P01_05": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P03_03": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P11_102": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_107": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P37_101": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_12": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_107": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_13": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P28_109": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P12_02": {"x_scale": 0.3563, "y_scale": 0.3556},
+    "P12_03": {"x_scale": 0.3563, "y_scale": 0.3556},
+    "P04_25": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P08_21": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_128": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P04_03": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P14_05": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P23_02": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P28_112": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_01": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P07_08": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P11_103": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_132": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_14": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P02_01": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P18_03": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P06_102": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P01_01": {"x_scale": 0.2375, "y_scale": 0.2370},
+    "P35_105": {"x_scale": 0.2375, "y_scale": 0.2370}
+}
+
 
 import torchvision.transforms as transforms
 from torchvision.transforms import Compose
@@ -454,6 +377,33 @@ class PHALP(nn.Module):
         except Exception as e:
             print(f"An error occurred: {e}")
             return None
+   
+
+    def rescale_all_bounding_boxes(self, bboxes, x_scale, y_scale):
+        """
+        Rescales all bounding boxes in the list according to the given x and y scale factors.
+
+        Parameters:
+        bboxes (list of tuples/lists): List of bounding boxes, where each bounding box is represented 
+                                        as (x_min, y_min, x_max, y_max).
+        x_scale (float): Scale factor for the x-coordinates.
+        y_scale (float): Scale factor for the y-coordinates.
+
+        Returns:
+        list of tuples: List of rescaled bounding boxes.
+        """
+        rescaled_bboxes = []
+        
+        # Loop through each bounding box and rescale it
+        for bbox in bboxes:
+            x_min, y_min, x_max, y_max = bbox
+            x_min_rescaled = x_min * x_scale
+            y_min_rescaled = y_min * y_scale
+            x_max_rescaled = x_max * x_scale
+            y_max_rescaled = y_max * y_scale
+            rescaled_bboxes.append((x_min_rescaled, y_min_rescaled, x_max_rescaled, y_max_rescaled))
+
+        return rescaled_bboxes
 
     def track(self):
         """
@@ -506,7 +456,7 @@ class PHALP(nn.Module):
             try:
                 # Read and preprocess the image frame
                 image_frame = self.read_image_from_tar(self.frames_path, f"{frame_name}.jpg")
-                image_frame = cv2.cvtColor(image_frame, cv2.COLOR_BGR2RGB)
+                image = cv2.cvtColor(image_frame, cv2.COLOR_BGR2RGB)
             except:
                 continue  # Skip frames that cannot be loaded
 
@@ -539,8 +489,7 @@ class PHALP(nn.Module):
             depth_metric_aligned = align_depth1_to_depth2(depth_metric, rend_depth, mask, None)
 
             if bbs:
-                batched_bbs.extend(bbs)
-                frame_names.extend([frame_name] * len(bbs))
+                bbs  = self.rescale_all_bounding_boxes(bbs,boxes_scales[self.kitchen]["x_scale"], boxes_scales[self.kitchen]["y_scale"] )
                 loca_features, loc_3d_objs, r3d_objs = extract_3d_features(
                     bbs, objs, camera_pose, depth_metric_aligned, camera_intrinsics,
                     self.data_path, frame_name, res
