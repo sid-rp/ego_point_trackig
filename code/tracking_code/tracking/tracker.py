@@ -12,6 +12,118 @@ from external.deep_sort_ import nn_matching
 from external.deep_sort_.detection import Detection
 from external.deep_sort_.tracker import Tracker
 from util import get_colors, read_data_1, get_object_bbs_seg, visualize_mask
+import tarfile
+
+boxes_scales = {'P24_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_04': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_14': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P30_107': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P05_08': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P12_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_103': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P10_04': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P30_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_103': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P35_109': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P37_103': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_11': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_21': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_109': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_07': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_14': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P22_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P15_02': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_26': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_09': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_109': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P24_08': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P23_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_110': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P20_03': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P11_105': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P08_09': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P22_07': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_113': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_02': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P25_107': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_130': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P08_16': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P30_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P18_07': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_103': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_03': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P11_102': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_107': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_24': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P37_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_12': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_107': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_17': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_104': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P11_16': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_13': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_122': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_11': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_109': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_124': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_114': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_06': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_123': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_121': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P27_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_13': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_07': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P26_110': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_112': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P30_112': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_33': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_135': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_03': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P12_02': {'x_scale': 0.3563, 'y_scale': 0.3556},
+ 'P02_102': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P05_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_03': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P22_117': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P17_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_09': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_11': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_110': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_04': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_13': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P30_111': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P18_06': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_113': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P03_23': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P11_101': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P32_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_121': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_110': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P12_03': {'x_scale': 0.3563, 'y_scale': 0.3556},
+ 'P04_25': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P08_21': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_128': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P04_03': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P14_05': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P23_02': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P28_112': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P07_08': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P11_103': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_132': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_14': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P02_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P18_03': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P06_102': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P01_01': {'x_scale': 0.2375, 'y_scale': 0.237},
+ 'P35_105': {'x_scale': 0.2375, 'y_scale': 0.237}}
 
 
 items_dict = {
@@ -143,6 +255,76 @@ class PHALP(nn.Module):
         metric = nn_matching.NearestNeighborDistanceMetric(self.cfg, self.cfg.hungarian_th, self.cfg.past_lookback)
         self.tracker = Tracker(self.cfg, metric, max_age=self.cfg.max_age_track, n_init=self.cfg.n_init,
                                phalp_tracker=self, dims=[4096, 4096, 99])
+    
+    def read_image_from_tar(self, tar_file_path, file_name):
+        """
+        Reads an image file from a .tar archive and converts it to OpenCV format (NumPy array).
+        
+        Parameters:
+            tar_file_path (str): Path to the .tar archive.
+            file_name (str): Name of the image file inside the tar archive to read.
+        
+        Returns:
+            numpy.ndarray: The image as a NumPy array in OpenCV format.
+        """
+
+        try:
+            # Open the tar file in read mode
+            with tarfile.open(tar_file_path, "r") as tar:
+                # Try to extract the specific image file
+                file = tar.extractfile(f"./{file_name}")
+                
+                if file:
+                    # Read the image content as bytes
+                    image_bytes = file.read()
+                    
+                    # Convert the bytes to a NumPy array
+                    nparr = np.frombuffer(image_bytes, np.uint8)
+                    
+                    # Decode the NumPy array into an OpenCV image
+                    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+                    
+                    # Check if the image was successfully decoded
+                    if img is None:
+                        print(f"Failed to decode the image {file_name}.")
+                        return None
+                    return img
+                else:
+                    print(f"File {file_name} not found inside the tar archive.")
+                    return None
+        except KeyError:
+            print(f"The file {file_name} does not exist inside the tar archive.")
+            return None
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+
+    def rescale_all_bounding_boxes(self, bboxes, x_scale, y_scale):
+            """
+            Rescales all bounding boxes in the list according to the given x and y scale factors.
+
+            Parameters:
+            bboxes (list of tuples/lists): List of bounding boxes, where each bounding box is represented 
+                                            as (x_min, y_min, x_max, y_max).
+            x_scale (float): Scale factor for the x-coordinates.
+            y_scale (float): Scale factor for the y-coordinates.
+
+            Returns:
+            list of tuples: List of rescaled bounding boxes.
+            """
+            rescaled_bboxes = []
+            
+            # Loop through each bounding box and rescale it
+            for bbox in bboxes:
+                x_min, y_min, x_max, y_max = bbox
+                x_min_rescaled = x_min * x_scale
+                y_min_rescaled = y_min * y_scale
+                x_max_rescaled = x_max * x_scale
+                y_max_rescaled = y_max * y_scale
+                rescaled_bboxes.append((x_min_rescaled, y_min_rescaled, x_max_rescaled, y_max_rescaled))
+
+            return rescaled_bboxes
+
 
     def track(self, config=None, debug=False):
         wb = wandb.init(config=config)
@@ -156,15 +338,16 @@ class PHALP(nn.Module):
         self.base_path = self.cfg.base_path
         first_number = self.kitchen.split('_')[0]
 
-        self.data_path = f"{self.base_path}/data/aggregated/{self.cfg.kitchen}/"
-        self.frames_path = f"{self.base_path}/EPIC-KITCHENS/{first_number}/rgb_frames/{self.cfg.kitchen}/"
+        self.data_path = f"{self.base_path}/aggregated/{self.cfg.kitchen}/"
+        self.frames_path = f"{self.base_path}/preprocessed_data/{self.cfg.kitchen}.tar"
+        # breakpoint()
         with open(os.path.join(self.data_path, 'poses.json'), 'r') as f:
             self.poses = json.load(f)
         self.masks, _, self.camera_poses, self.frames, _ = read_data_1(self.data_path, '', self.cfg.kitchen, True)
 
-        with open(f"{self.base_path}/saved_feat_3D/{self.cfg.kitchen}/3D_feat_{self.cfg.kitchen}.pkl", 'rb') as file:
+        with open(f"{self.base_path}/osnom_3d_features/saved_feat_3D/{self.cfg.kitchen}/3D_feat_{self.cfg.kitchen}.pkl", 'rb') as file:
             self.all_loca = pickle.load(file)
-        with open(f"{self.base_path}/saved_feat_2D/{self.cfg.kitchen}/2D_feat_{self.cfg.kitchen}.pkl", 'rb') as file:
+        with open(f"{self.base_path}/osnom_2d_features/saved_feat_2D/{self.cfg.kitchen}/2D_feat_{self.cfg.kitchen}.pkl", 'rb') as file:
             self.all_feat = pickle.load(file)
 
         self.bbs_dict = get_object_bbs_seg(self.masks['video_annotations'])
@@ -184,6 +367,8 @@ class PHALP(nn.Module):
             removed_indices = []
 
             if bbs:
+                bbs  = self.rescale_all_bounding_boxes(bbs,boxes_scales[self.kitchen]["x_scale"], boxes_scales[self.kitchen]["y_scale"] )
+
                 try:
                     appe_features = self.all_feat[frame_name]
                     features_3d = self.all_loca[frame_name]
@@ -241,7 +426,9 @@ class PHALP(nn.Module):
                     final_visuals_dic[frame_name]['radius'].append(track_data_hist['radius'])
 
             if self.cfg.visualize and final_visuals_dic[frame_name]['tracked_ids']:
-                cv_image = cv2.imread(os.path.join(self.frames_path, f"{frame_name}.jpg"))
+                # breakpoint()
+                cv_image = self.read_image_from_tar(self.frames_path,f"{frame_name}.jpg")
+                # cv_image = cv2.imread(os.path.join(self.frames_path, f"{frame_name}.jpg"))
                 cv_image = cv2.resize(cv_image, (854, 480))
                 cv_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
                 for bbox, tr_id in zip(final_visuals_dic[frame_name]['tracked_bbox'], final_visuals_dic[frame_name]['tracked_ids']):

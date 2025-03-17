@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-EPIC_KITCHENS_PATH = './data/EPIC-KITCHENS/'
+EPIC_KITCHENS_PATH = '/scratch/projects/fouheylab/shared_datasets/epic_tracking_dataset/data/'
 
 
 def run_for_all_videos(video_list, results_path, data_path, output_dir, name_prefix):
@@ -23,7 +23,7 @@ def run_for_all_videos(video_list, results_path, data_path, output_dir, name_pre
         command = [
             "python", "./code/evaluation_code/evaluate.py",
             "--results_path", results_path,
-            "--frames_path", os.path.join(EPIC_KITCHENS_PATH, kitchen, "rgb_frames", video),
+            "--frames_path", os.path.join(EPIC_KITCHENS_PATH,  "preprocessed_data", f'{video}.tar'),
             "--data_path", data_path,
             "--kitchen", kitchen,
             "--video", video_id,
@@ -151,8 +151,8 @@ VIDEOS = ['P24_05',
           'P35_105']
 
 # Paths and configurations
-results_path = "/path/to/results.pkl"
-output_dir = "/path/to/output/"
+results_path = "/scratch/projects/fouheylab/dma9300/OSNOM/results_AL/tune_output/results.pkl"
+output_dir = "osnom_output"
 data_path = "./data/EPIC_100_video_info.csv"
 name_prefix = "experiment_1"
 

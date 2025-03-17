@@ -6,7 +6,7 @@
 #SBATCH --mem=50G                 # 50GB memory per job
 #SBATCH --cpus-per-task=4         # 4 CPU cores per task
 #SBATCH --gres=gpu:1              # Request 1  GPU per task
-#SBATCH --array=0-9               # 10 tasks (100 videos / 10 videos per task)
+#SBATCH --array=0-10               # 10 tasks (110 videos / 10 videos per task)
 
 # Load necessary modules
 # module load anaconda  # Adjust based on your system

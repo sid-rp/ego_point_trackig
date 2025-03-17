@@ -7,8 +7,8 @@ import wandb
 from tracking.tracker import PHALP
 
 # Base Paths
-BASE_PATH = '.'
-RESULTS_PATH = os.path.join(BASE_PATH, '')
+BASE_PATH = "/scratch/projects/fouheylab/shared_datasets/epic_tracking_dataset/data"
+RESULTS_PATH = "/scratch/projects/fouheylab/dma9300/OSNOM/"
 TUNE_OUTPUT_PATH = os.path.join(RESULTS_PATH, 'results.pkl')
 
 

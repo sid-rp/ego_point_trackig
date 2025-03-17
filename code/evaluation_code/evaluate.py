@@ -5,6 +5,37 @@ import pandas as pd
 import argparse
 import pickle
 import os
+import tarfile
+
+
+import tarfile
+import cv2
+import numpy as np
+import tarfile
+
+def get_filenames_from_tar(tar_file_path):
+    """
+    Retrieves all file names inside a .tar archive.
+
+    Parameters:
+        tar_file_path (str): Path to the .tar archive.
+
+    Returns:
+        list: A list of all file names inside the archive.
+    """
+    try:
+        with tarfile.open(tar_file_path, "r") as tar:
+            # Retrieve all filenames inside the .tar archive
+            filenames = [f.name.split('.')[1].split("/")[1] for f in tar.getmembers() if f.isfile()]
+            # breakpoint()
+            return filenames
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+
+
+
 
 def load_results(results_path):
     with open(results_path, 'rb') as f:
@@ -69,7 +100,6 @@ def get_object_from_results(results, all_frames):
     present_ids = {}
     last_frame = None
     set_ids = []
-
     save_dicts = [save_dict_id_loca, save_dict_gt_loca, save_dict_gt_id]
 
     for frame_name in sorted(all_frames):
@@ -239,6 +269,8 @@ def list_all_frames(directory_path):
     return [f.split('.')[0] for f in os.listdir(directory_path)]
 
 
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--results_path', type=str, required=True, help='Path to results file')
@@ -264,7 +296,7 @@ def main():
     results = load_results(args.results_path)
     print('results loaded...')
 
-    all_frames = list_all_frames(args.frames_path)
+    all_frames = get_filenames_from_tar(args.frames_path)
 
 
     # Prepare results for the evaluation

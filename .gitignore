@@ -3,3 +3,11 @@ osnom_2d_features/*
 *.out 
 *.err
 slogs/*
+osnom_output/*
+wandb/*
+slogs/*
+dino_outputs/*
+here_osnom/*
+results_AL/*
+resources/*
+

@@ -5,12 +5,17 @@
 #SBATCH --time=48:00:00           # Max runtime: 48 hours
 #SBATCH --mem=50G                 # 50GB memory per job
 #SBATCH --cpus-per-task=4         # 4 CPU cores per task
-#SBATCH --gres=gpu:v100:1         # Request 1 V100 GPU per task
-#SBATCH --array=0-9               # 10 tasks (100 videos / 10 videos per task)
+#SBATCH --gres=gpu:1         # Request 1 GPU per task
+#SBATCH --constraint="v100|rtx8000"  # Request either V100 or RTX 8000
+#SBATCH --array=0-10               # 10 tasks (110 videos / 10 videos per task)
 
 # Load necessary modules
 # module load anaconda  # Adjust based on your system
-source activate OSNOM  # Activate the required environment
+# module load anaconda  # Adjust based on your system
+source /scratch/projects/fouheylab/dma9300/miniconda3/etc/profile.d/conda.sh
+eval "$(conda shell.bash hook)"  # Ensures Conda works in non-interactive SLURM jobs
+conda activate OSNOM
+
 
 # Define the list of videos, we have a video_ids.txt file which contains video names one per line
 VIDEOS_FILE="./video_ids.txt"
