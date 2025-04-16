@@ -10,4 +10,14 @@ dino_outputs/*
 here_osnom/*
 results_AL/*
 resources/*
-
+cache_dir/*
+*.png
+*.out
+dino3d_model_epochs_100epochs/*
+dino3d_model_epochs_100epochs_debugs/*
+dino3d_model_epochs_displacement_100epochs/*
+dino3d_model_epochs_displacement_100epochs_debug/*
+features_2d_dino_overlap_threshold_40.0_percent/*
+results_AL/*
+saved_images/*
+dino_outputs/*

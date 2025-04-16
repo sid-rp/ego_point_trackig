@@ -1,104 +1,0 @@
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-Using cache found in /home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
-  warnings.warn("xFormers is not available (SwiGLU)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
-  warnings.warn("xFormers is not available (Attention)")
-/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
-  warnings.warn("xFormers is not available (Block)")
-/opt/slurm/data/slurmd/job58029602/slurm_script: line 52: 3736622 Killed                  python $CODE_PATH/code/tracking_code/extract_feat/save_feat_batch_2D.py --output_dir $OUTPUT_DIR --data_path $BASE_PATH/data/aggregated/$VIDEO --frames_path $BASE_PATH/data/preprocessed_data/${VIDEO}.tar --kitchen $VIDEO
-  0%|          | 0/769 [00:00<?, ?it/s]  0%|          | 0/738 [00:00<?, ?it/s]  0%|          | 0/528 [00:00<?, ?it/s]  0%|          | 0/470 [00:00<?, ?it/s]  0%|          | 0/917 [00:00<?, ?it/s]  0%|          | 1/470 [00:06<51:39,  6.61s/it]  0%|          | 1/738 [00:06<1:24:06,  6.85s/it]  0%|          | 1/769 [00:08<1:50:40,  8.65s/it]  0%|          | 2/470 [00:09<33:07,  4.25s/it]  0%|          | 2/738 [00:10<58:37,  4.78s/it]    0%|          | 3/917 [00:08<44:08,  2.90s/it]  1%|          | 3/470 [00:11<27:44,  3.56s/it]  0%|          | 3/738 [00:13<52:02,  4.25s/it]  0%|          | 2/769 [00:15<1:37:06,  7.60s/it]  1%|          | 4/470 [00:15<27:44,  3.57s/it]  1%|          | 4/738 [00:17<50:36,  4.14s/it]  1%|          | 5/470 [00:18<24:51,  3.21s/it]  0%|          | 4/917 [00:16<1:07:03,  4.41s/it]  0%|          | 1/528 [00:19<2:53:25, 19.74s/it]  1%|          | 5/738 [00:21<49:31,  4.05s/it]  1%|▏         | 6/470 [00:21<25:31,  3.30s/it]  0%|          | 3/769 [00:22<1:30:42,  7.11s/it]  1%|▏         | 7/470 [00:24<24:01,  3.11s/it]  0%|          | 2/528 [00:25<1:41:12, 11.54s/it]  1%|          | 6/738 [00:25<49:46,  4.08s/it]  1%|          | 5/917 [00:23<1:21:30,  5.36s/it]  2%|▏         | 8/470 [00:27<25:02,  3.25s/it]  1%|          | 4/769 [00:30<1:35:33,  7.49s/it]  1%|          | 7/738 [00:30<51:46,  4.25s/it]  2%|▏         | 9/470 [00:30<23:55,  3.11s/it]  1%|          | 6/917 [00:30<1:27:05,  5.74s/it]  1%|          | 3/528 [00:33<1:26:32,  9.89s/it]  2%|▏         | 10/470 [00:33<23:03,  3.01s/it]  1%|          | 8/738 [00:34<49:54,  4.10s/it]  2%|▏         | 11/470 [00:36<22:21,  2.92s/it]  1%|          | 5/769 [00:36<1:31:57,  7.22s/it]  3%|▎         | 12/470 [00:39<22:16,  2.92s/it]  1%|          | 9/738 [00:39<54:54,  4.52s/it]  1%|          | 4/528 [00:40<1:15:44,  8.67s/it]  1%|          | 7/917 [00:37<1:33:08,  6.14s/it]  3%|▎         | 13/470 [00:41<22:13,  2.92s/it]  1%|          | 6/769 [00:43<1:31:09,  7.17s/it]  1%|▏         | 10/738 [00:44<54:50,  4.52s/it]  3%|▎         | 14/470 [00:44<21:59,  2.89s/it]  1%|          | 5/528 [00:46<1:08:46,  7.89s/it]  1%|          | 8/917 [00:44<1:37:08,  6.41s/it]  1%|▏         | 11/738 [00:47<51:47,  4.28s/it]  3%|▎         | 15/470 [00:48<24:29,  3.23s/it]  1%|          | 7/769 [00:50<1:29:11,  7.02s/it]  3%|▎         | 16/470 [00:51<23:51,  3.15s/it]  2%|▏         | 12/738 [00:52<52:20,  4.33s/it]  1%|          | 6/528 [00:53<1:06:39,  7.66s/it]  1%|          | 9/917 [00:51<1:38:40,  6.52s/it]  4%|▎         | 17/470 [00:54<23:08,  3.06s/it]  2%|▏         | 13/738 [00:56<51:19,  4.25s/it]  1%|          | 8/769 [00:57<1:30:23,  7.13s/it]  4%|▍         | 18/470 [00:58<23:52,  3.17s/it]  2%|▏         | 14/738 [01:00<50:49,  4.21s/it]  1%|▏         | 7/528 [01:00<1:03:51,  7.35s/it]  4%|▍         | 19/470 [01:00<23:13,  3.09s/it]  1%|          | 10/917 [00:58<1:41:54,  6.74s/it]  2%|▏         | 15/738 [01:04<49:45,  4.13s/it]  4%|▍         | 20/470 [01:04<24:44,  3.30s/it]  1%|          | 9/769 [01:05<1:29:56,  7.10s/it]  2%|▏         | 8/528 [01:07<1:02:22,  7.20s/it]  2%|▏         | 16/738 [01:08<48:35,  4.04s/it]  4%|▍         | 21/470 [01:08<25:20,  3.39s/it]  1%|          | 11/917 [01:05<1:43:45,  6.87s/it]  5%|▍         | 22/470 [01:11<24:01,  3.22s/it]  1%|▏         | 10/769 [01:12<1:29:52,  7.10s/it]  2%|▏         | 17/738 [01:12<50:18,  4.19s/it]  2%|▏         | 9/528 [01:14<1:00:18,  6.97s/it]  5%|▍         | 23/470 [01:14<23:07,  3.10s/it]  1%|▏         | 12/917 [01:12<1:44:58,  6.96s/it]  2%|▏         | 18/738 [01:17<50:59,  4.25s/it]  5%|▌         | 24/470 [01:17<23:31,  3.17s/it]  1%|▏         | 11/769 [01:19<1:29:12,  7.06s/it]  5%|▌         | 25/470 [01:20<22:49,  3.08s/it]  2%|▏         | 10/528 [01:21<1:00:13,  6.97s/it]  3%|▎         | 19/738 [01:21<50:48,  4.24s/it]  1%|▏         | 13/917 [01:19<1:45:49,  7.02s/it]  6%|▌         | 26/470 [01:22<22:07,  2.99s/it]  3%|▎         | 20/738 [01:25<50:37,  4.23s/it]  2%|▏         | 12/769 [01:26<1:28:50,  7.04s/it]  6%|▌         | 28/470 [01:26<17:44,  2.41s/it]  2%|▏         | 11/528 [01:27<59:10,  6.87s/it]    6%|▌         | 29/470 [01:29<18:54,  2.57s/it]  3%|▎         | 21/738 [01:30<51:29,  4.31s/it]  2%|▏         | 14/917 [01:27<1:46:20,  7.07s/it]  6%|▋         | 30/470 [01:32<19:14,  2.62s/it]  2%|▏         | 13/769 [01:33<1:29:28,  7.10s/it]  3%|▎         | 22/738 [01:34<51:16,  4.30s/it]  2%|▏         | 12/528 [01:34<59:20,  6.90s/it]  7%|▋         | 31/470 [01:35<20:19,  2.78s/it]  2%|▏         | 15/917 [01:33<1:45:05,  6.99s/it]  3%|▎         | 23/738 [01:38<49:37,  4.16s/it]  7%|▋         | 32/470 [01:38<21:00,  2.88s/it]  2%|▏         | 14/769 [01:40<1:30:02,  7.16s/it]  2%|▏         | 13/528 [01:41<59:37,  6.95s/it]  7%|▋         | 33/470 [01:41<21:17,  2.92s/it]  3%|▎         | 24/738 [01:42<50:57,  4.28s/it]  2%|▏         | 16/917 [01:40<1:44:46,  6.98s/it]  7%|▋         | 34/470 [01:45<22:25,  3.09s/it]  3%|▎         | 25/738 [01:46<49:35,  4.17s/it]  2%|▏         | 15/769 [01:47<1:29:59,  7.16s/it]  7%|▋         | 35/470 [01:47<21:40,  2.99s/it]  3%|▎         | 14/528 [01:48<58:47,  6.86s/it]  4%|▎         | 26/738 [01:50<48:33,  4.09s/it]  2%|▏         | 17/917 [01:48<1:45:45,  7.05s/it]  8%|▊         | 36/470 [01:51<23:09,  3.20s/it]  4%|▎         | 27/738 [01:54<48:25,  4.09s/it]  8%|▊         | 37/470 [01:54<22:33,  3.13s/it]  2%|▏         | 16/769 [01:55<1:30:33,  7.22s/it]  3%|▎         | 15/528 [01:55<59:25,  6.95s/it]  8%|▊         | 38/470 [01:57<22:41,  3.15s/it]  2%|▏         | 18/917 [01:55<1:45:46,  7.06s/it]  4%|▍         | 28/738 [01:58<48:08,  4.07s/it]  8%|▊         | 39/470 [02:00<22:00,  3.06s/it]  2%|▏         | 17/769 [02:02<1:29:46,  7.16s/it]  3%|▎         | 16/528 [02:02<59:18,  6.95s/it]  4%|▍         | 29/738 [02:02<47:36,  4.03s/it]  9%|▊         | 40/470 [02:03<22:23,  3.12s/it]  2%|▏         | 19/917 [02:02<1:46:10,  7.09s/it]  9%|▊         | 41/470 [02:06<22:04,  3.09s/it]  4%|▍         | 31/738 [02:07<37:57,  3.22s/it]  2%|▏         | 18/769 [02:08<1:28:01,  7.03s/it]  3%|▎         | 17/528 [02:09<59:32,  6.99s/it]  9%|▉         | 42/470 [02:09<21:54,  3.07s/it]  4%|▍         | 32/738 [02:11<40:06,  3.41s/it]  2%|▏         | 20/917 [02:09<1:48:17,  7.24s/it]  9%|▉         | 43/470 [02:12<21:50,  3.07s/it]  4%|▍         | 33/738 [02:15<42:50,  3.65s/it]  9%|▉         | 44/470 [02:15<21:30,  3.03s/it]  2%|▏         | 19/769 [02:16<1:29:24,  7.15s/it]  3%|▎         | 18/528 [02:16<58:55,  6.93s/it]  5%|▍         | 34/738 [02:19<43:34,  3.71s/it]  2%|▏         | 21/917 [02:16<1:45:14,  7.05s/it] 10%|▉         | 45/470 [02:20<24:44,  3.49s/it]  4%|▎         | 19/528 [02:22<58:01,  6.84s/it]  5%|▍         | 35/738 [02:23<43:37,  3.72s/it]  3%|▎         | 20/769 [02:23<1:30:19,  7.24s/it]  2%|▏         | 22/917 [02:23<1:43:19,  6.93s/it]  5%|▍         | 36/738 [02:26<43:29,  3.72s/it]  4%|▍         | 20/528 [02:28<55:39,  6.57s/it]  5%|▌         | 37/738 [02:30<43:15,  3.70s/it]  3%|▎         | 21/769 [02:31<1:30:43,  7.28s/it]  3%|▎         | 23/917 [02:30<1:44:30,  7.01s/it]  4%|▍         | 21/528 [02:33<50:32,  5.98s/it]  5%|▌         | 38/738 [02:33<41:53,  3.59s/it]  5%|▌         | 39/738 [02:37<43:19,  3.72s/it]  3%|▎         | 22/769 [02:37<1:28:54,  7.14s/it]  4%|▍         | 22/528 [02:38<48:36,  5.76s/it]  3%|▎         | 24/917 [02:37<1:43:14,  6.94s/it]  5%|▌         | 40/738 [02:41<42:05,  3.62s/it]  3%|▎         | 23/769 [02:44<1:26:52,  6.99s/it]  4%|▍         | 23/528 [02:45<50:32,  6.00s/it] 10%|▉         | 46/470 [02:46<1:12:52, 10.31s/it]  3%|▎         | 25/917 [02:44<1:44:24,  7.02s/it]  5%|▌         | 40/738 [02:48<49:08,  4.22s/it]
-Traceback (most recent call last):
-  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_2D.py", line 364, in <module>
-    main()
-  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_2D.py", line 360, in main
-    phalp_instance.track()
-  File "/scratch/projects/fouheylab/dma9300/OSNOM//code/tracking_code/extract_feat/save_feat_batch_2D.py", line 301, in track
-    appe_features = extract_dino_features_batch(
-  File "/scratch/projects/fouheylab/dma9300/OSNOM/./code/tracking_code/util.py", line 791, in extract_dino_features_batch
-    features = model(patches.to(device))
-  File "/scratch/projects/fouheylab/dma9300/miniconda3/envs/OSNOM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/models/vision_transformer.py", line 325, in forward
-    ret = self.forward_features(*args, **kwargs)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/models/vision_transformer.py", line 261, in forward_features
-    x = blk(x)
-  File "/scratch/projects/fouheylab/dma9300/miniconda3/envs/OSNOM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py", line 254, in forward
-    return super().forward(x_or_x_list)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py", line 112, in forward
-    x = x + attn_residual_func(x)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py", line 91, in attn_residual_func
-    return self.ls1(self.attn(self.norm1(x)))
-  File "/scratch/projects/fouheylab/dma9300/miniconda3/envs/OSNOM/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1194, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py", line 77, in forward
-    return super().forward(x)
-  File "/home/dma9300/.cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py", line 63, in forward
-    attn = attn.softmax(dim=-1)
-torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 624.00 MiB (GPU 0; 31.74 GiB total capacity; 5.85 GiB already allocated; 183.12 MiB free; 6.51 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
- 10%|█         | 47/470 [02:49<56:51,  8.06s/it]    5%|▍         | 24/528 [02:51<50:16,  5.98s/it]  3%|▎         | 24/769 [02:51<1:27:33,  7.05s/it] 10%|█         | 48/470 [02:52<45:10,  6.42s/it]  3%|▎         | 26/917 [02:51<1:44:48,  7.06s/it] 10%|█         | 49/470 [02:55<38:23,  5.47s/it]  5%|▍         | 25/528 [02:56<48:13,  5.75s/it]slurmstepd: error: *** JOB 58029602 ON gv005 CANCELLED AT 2025-03-06T16:37:18 ***
-slurmstepd: error: Detected 5 oom_kill events in StepId=58029602.batch. Some of the step tasks have been OOM Killed.
