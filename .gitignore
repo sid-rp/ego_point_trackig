@@ -27,3 +27,6 @@ dino3d_model_*/
 dino_model_*/
 egopoints/*
 weights/**.pth
+weights/*.pth
+*.pkl
+*.json
