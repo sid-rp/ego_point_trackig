@@ -58,12 +58,13 @@ sbatch --account=pr_96_general \
        cd /scratch/projects/fouheylab/dma9300/OSNOM/ && \
        python trainer.py \
        --batch_size 32 \
+       --epochs 70 \
+       --learning_rate 0.000001 \
        --num_workers 8 \
-       --epochs 100 \
-       --learning_rate 0.0001 \
-       --warmup_epochs 10 \
+       --warmup_epochs 0 \
        --min_lr 1e-6 \
-       --output_dir dino3d_model_epochs_displacement_100epochs \
-       --displacement_net True \
+       --arch croco \
+       --loss_function combined \
+       --output_dir croco_model_epochs_70_combined_loss\
        --print_freq 20 \
        --write_freq 50"

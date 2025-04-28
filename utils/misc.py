@@ -90,9 +90,14 @@ class MetricLogger:
         """
         pass  # You can implement this based on your distributed setup
 
-
 def custom_collate_fn(batch):
     from torch.nn.utils.rnn import pad_sequence
+    from torch.utils.data.dataloader import default_collate
+
+    # Filter out any None samples
+    batch = [item for item in batch if item is not None]
+    if len(batch) == 0:
+        return None  # Optionally handle empty batches
 
     def pad_keypoints_and_mask(kps_list):
         lengths = torch.tensor([kp.shape[0] for kp in kps_list], dtype=torch.long)
@@ -103,9 +108,6 @@ def custom_collate_fn(batch):
 
     img1 = torch.stack([item['img1'] for item in batch])
     img2 = torch.stack([item['img2'] for item in batch])
-    # dino_feats_img1 = torch.stack([item['img1_dino_feat'] for item in batch])
-    # dino_feats_img2 = torch.stack([item['img2_dino_feat'] for item in batch])
-    # F_matrix = torch.stack([item['F_matrix'] for item in batch])
     kp1_list = [item['kp1'] for item in batch]
     kp2_list = [item['kp2'] for item in batch]
 
@@ -119,7 +121,4 @@ def custom_collate_fn(batch):
         'kp2': kp2_padded,
         'kp1_mask': kp1_mask,
         'kp2_mask': kp2_mask,
-        # "F_matrix": F_matrix
-        # "img1_dino_feat": dino_feats_img1,
-        # "img2_dino_feat": dino_feats_img2
     }

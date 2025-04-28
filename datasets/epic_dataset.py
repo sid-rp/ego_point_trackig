@@ -36,19 +36,16 @@ def _get_worker_id():
 
 DEPTH_ANYTHING_PATH = "/scratch/projects/fouheylab/dma9300/OSNOM/code/tracking_code/Depth-Anything"
 class EpicKitchenDataset(Dataset):
-    def __init__(self, root,  split = "train", overlap_threshold=0.20, transform= transforms.Compose([
-            transforms.ToPILImage(),  
-            transforms.Resize((224, 224)), 
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        ]), cache_dir  = "cache_dir", train_ratio = 0.80):
+    def __init__(self, root,  split = "train", overlap_threshold=0.20, cache_dir  = "cache_dir", train_ratio = 0.80):
         """
         Args:
             json_dir (str): Path to the directory containing JSON overlap files.
             overlap_threshold (float): Minimum overlap value to include a pair.
             transform (callable, optional): Optional transform to apply to each sample.
         """
-        self.transform = transform
+        
+        is_training  = split == "train"
+        self.transform = self.get_transform(train = is_training)
         self.pairs = []
         self.root  = root
         self.split = split
@@ -96,7 +93,7 @@ class EpicKitchenDataset(Dataset):
                             # breakpoint()
                             for img2, val in sub_dict.items():
                                 # breakpoint()
-                                if val["overlap"] > self.overlap_threshold:
+                                if val["overlap"] > self.overlap_threshold and len(val["kp1"])>=15:
                                     self.pairs.append((img1, img2, filename.split("_overlaps")[0], val["overlap"], val["kp1"], val["kp2"]))
                                     unique_frames.add(img1)
                                     unique_frames.add(img2)
@@ -140,6 +137,26 @@ class EpicKitchenDataset(Dataset):
                     tar_path = os.path.join(self.tar_files, file_name)
                     self.tarfile_cache[key] = tarfile.open(tar_path, 'r')
     
+
+    def get_transform(self, train=True):
+        if train:
+            transform = transforms.Compose([
+                transforms.ToPILImage(),
+                transforms.Resize((224, 224)),
+                transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),  # Add jitter here
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                    std=[0.229, 0.224, 0.225]),
+            ])
+        else:
+            transform = transforms.Compose([
+                transforms.ToPILImage(),
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                    std=[0.229, 0.224, 0.225]),
+            ])
+        return transform
     def read_image_from_tar(self, kitchen_id, file_name):
         """
         Reads an image from a pre-opened tar file.
@@ -745,8 +762,8 @@ class EpicKitchenDataset(Dataset):
             view1_img = self.transform(view1_img)
             view2_img = self.transform(view2_img)
 
-        if np.random.rand() < 0.5:
-            view1_img, kp1, view1_img, kp2 =  self.rotate_image_pair_and_keypoints(view1_img, kp1, view2_img, kp2)
+        # if np.random.rand() < 0.5 and self.split == "train":
+        #     view1_img, kp1, view1_img, kp2 =  self.rotate_image_pair_and_keypoints(view1_img, kp1, view2_img, kp2)
     
         sample = {
             "img1": view1_img,

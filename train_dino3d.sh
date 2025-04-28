@@ -1,6 +1,6 @@
 #!/bin/bash
 # Default values (can be overridden by command-line arguments)
-GPU_TYPE="RTX8000"  # Default GPU type for NYU
+GPU_TYPE="A100"  # Default GPU type for NYU
 NUM_GPUS=1       # Default number of GPUs
 
 # Parse command-line arguments
@@ -42,7 +42,7 @@ fi
 
 # Submit the job
 sbatch --account=pr_96_general \
-       --time=:00:00 \
+       --time=18:00:00 \
        --mem=${MEMORY}G \
        --gres=gpu:${GPU_TYPE,,}:$NUM_GPUS \
        --cpus-per-task=$CPUS \
@@ -57,13 +57,15 @@ sbatch --account=pr_96_general \
        echo 'Using Python:' \$(which python) && \
        cd /scratch/projects/fouheylab/dma9300/OSNOM/ && \
        python trainer.py \
-       --batch_size 32 \
+       --batch_size 32\
        --epochs 100 \
-       --learning_rate 0.0001 \
+       --learning_rate 0.000001 \
        --num_workers 8 \
-       --warmup_epochs 10 \
+       --warmup_epochs 0 \
        --min_lr 1e-6 \
-       --displacement_net False \
-       --output_dir dino3d_model_epochs_100epochs \
+       --arch croco \
+       --use_delta True \
+       --loss_function l2 \
+       --output_dir croco_model_epochs_100_ego_points_l2_loss_deltanet\
        --print_freq 20 \
        --write_freq 50"

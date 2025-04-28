@@ -21,3 +21,8 @@ features_2d_dino_overlap_threshold_40.0_percent/*
 results_AL/*
 saved_images/*
 dino_outputs/*
+croco_model_epochs_50_cosine_loss/
+croco_model_*/
+dino3d_model_*/
+dino_model_*/
+egopoints/*
