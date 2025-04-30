@@ -31,3 +31,4 @@ weights/*.pth
 *.pkl
 *.json
 mixture_*/
+evaluation_paths.json

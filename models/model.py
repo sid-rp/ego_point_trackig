@@ -1,11 +1,12 @@
 import os
+import token
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from .croco_downstream import *
 from .pos_embed import interpolate_pos_embed
-
-WEIGHTS_PATH = "/scratch/projects/fouheylab/dma9300/OSNOM/weights/CroCo_V2_ViTBase_SmallDecoder.pth"
+import math
+WEIGHTS_PATH = "/vast/sp7835/ego-tracking/croco/output/croco_epic_kitchen_same_finetuned/checkpoint-last.pth"
 
 class CrossAttentionFusion(nn.Module):
     def __init__(self, dim=768, num_heads=1):
@@ -225,7 +226,7 @@ class MLPFeatureProjector(nn.Module):
         x = x.permute(0, 2, 1).view(B, -1, H, W)  # → (B, out_dim, H, W)
         return x
 
-WEIGHTS_PATH = "/scratch/projects/fouheylab/dma9300/OSNOM/weights/CroCo_V2_ViTBase_SmallDecoder.pth"
+WEIGHTS_PATH = "/vast/sp7835/ego-tracking/croco/output/croco_epic_kitchen_same_finetuned/checkpoint-last.pth"
 class CrocoMultiLayerFeatures(nn.Module):
     def __init__(self, model_weights=WEIGHTS_PATH):
         super().__init__()
@@ -299,13 +300,15 @@ class CrocoF(nn.Module):
             layers = [layers[i] for i in [-1]]
 
         patch_tokens = torch.cat(layers, dim=-1)  # (B, 196, 768)
-        return patch_tokens
+        feat = patch_tokens.permute(0, 2, 1).reshape(B, 768, 14, 14)
+        feat_px = F.interpolate(feat, size=(224, 224), mode='bilinear', align_corners=True)
+        return feat_px
        
 
-    def forward(self, img1):
-        token = self.extract_features(img1)
-
-        return token
+    def forward(self, img1,img2):
+        feat_1 = self.extract_features(img1)
+        feat_2 = self.extract_features(img2)
+        return feat_1, feat_2
 
 
 
@@ -324,14 +327,31 @@ class DinoF(nn.Module):
             layers = self.backbone.get_intermediate_layers(x, n=1)  # (B, 256, 768)
 
         patch_tokens = torch.cat(layers, dim=-1)  # (B, 196, 768)
-        return patch_tokens
-       
 
-    def forward(self, img1):
-        token = self.extract_features(img1)
+        # 2) reshape into a H×W grid
+        #    For vitb14: patch size = 14 → grid = 16×16 → num_patches = 256
+        C = patch_tokens.shape[-1]
+        H = W = int(math.sqrt(patch_tokens.shape[1]))      # =16
+        feat_map = (
+            patch_tokens
+              .permute(0, 2, 1)    # (B, C, num_patches)
+              .reshape(B, C, H, W) # (B, 768, 16, 16)
+        )
 
-        return token
+        # 3) upsample to full resolution
+        feat_px = F.interpolate(
+            feat_map,
+            size=(224, 224),
+            mode='bilinear',
+            align_corners=True
+        )  # → (B, 768, 224, 224)
 
+        return patch_tokens, feat_px
+
+    def forward(self, img1,img2):
+        tokens, feat_map1 = self.extract_features(img1)
+        tokens2, feat_map2 = self.extract_features(img2)
+        return feat_map1, feat_map2
 
 WEIGHTS_PATH = "/scratch/projects/fouheylab/dma9300/OSNOM/weights/CroCo_V2_ViTBase_SmallDecoder.pth"
 class CrocoDeltaNet(nn.Module):
@@ -455,3 +475,35 @@ class DinoDeltaModel(nn.Module):
             delta_px = F.interpolate(delta_pixel, size=(224, 224), mode='bilinear', align_corners=False)
             feat2_px = feat2_px + self.res_scale * delta_px
         return feat1_px, feat2_px
+class CrocoSSL(nn.Module):
+    def __init__(self, model_weights = WEIGHTS_PATH, delta = False):
+        super().__init__()
+        self.delta  = delta
+        assert os.path.isfile(model_weights)
+        ckpt = torch.load(model_weights, 'cpu')
+        croco_args = croco_args_from_ckpt(ckpt)
+        self.backbone = CroCoDownstreamMonocularEncoder(**croco_args)
+        interpolate_pos_embed(self.backbone, ckpt['model'])
+        _  = self.backbone.load_state_dict(ckpt['model'], strict=False)
+
+        #Freeze all layers of the backbone
+        for param in self.backbone.parameters():
+            param.requires_grad = False
+
+    def extract_features(self, x):
+        B = x.shape[0]
+        with torch.no_grad():
+            layers = self.backbone(x)  # (B, 196, 768)
+            layers = [layers[i] for i in [-1]]
+
+        patch_tokens = torch.cat(layers, dim=-1)  # (B, 196, 768)
+        feat = patch_tokens.permute(0, 2, 1).reshape(B, 768, 14, 14)
+        feat_px = F.interpolate(feat, size=(224, 224), mode='bilinear', align_corners=True)
+        
+        return patch_tokens,feat_px
+       
+
+    def forward(self, img1,img2):
+        _,feat1 = self.extract_features(img1)
+        _,feat2 = self.extract_features(img2)
+        return feat1, feat2

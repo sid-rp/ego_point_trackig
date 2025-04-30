@@ -427,6 +427,7 @@ import argparse
 import json
 from collections import defaultdict
 
+from models.model import WEIGHTS_PATH, CrocoSSL,CrocoF,DinoF
 import numpy as np
 from PIL import Image
 from tqdm import tqdm
@@ -558,8 +559,10 @@ def main(args):
     with open(args.seq_list, "r") as f:
         sequences = json.load(f)
 
-    model = CrocoDeltaNet(delta = False)
-    model.load_state_dict(torch.load(MODEL_WEIGHTS, map_location=DEVICE), strict=False)
+    model = DinoF()
+    # model = CrocoSSL(model_weights=args.model_weights)
+    # model = CrocoF(model_weights=args.model_weights)
+    # model.load_state_dict(torch.load(args.model_weights, map_location=DEVICE), strict=False)
     model.to(DEVICE)
     model.eval()
 
@@ -608,8 +611,8 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset_location", type=str, default="/scratch/projects/fouheylab/shared_datasets/point_tracking_data/ego_points")
-    parser.add_argument("--seq_list", type=str, default="/scratch/projects/fouheylab/dma9300/OSNOM/evaluation_videos.json")
-    DEVICE = "cpu"
-    MODEL_WEIGHTS = "/scratch/projects/fouheylab/dma9300/OSNOM/croco_model_epochs_50_cosine_loss/model_loss_cosine_epoch_70_val_loss_0.0236.pth"
+    parser.add_argument("--seq_list", type=str, default="/scratch/sp7835/ego-tracking/evaluation_paths.json")
+    DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    parser.add_argument("--model_weights",type=str, default="/vast/sp7835/ego-tracking/croco/pretrained_models/CroCo_V2_ViTBase_SmallDecoder.pth")
     args = parser.parse_args()
     main(args)
