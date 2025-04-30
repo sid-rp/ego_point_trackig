@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
 import os
 from datasets import EpicKitchenDataset
-from models import DinoDeltaModel, CrocoDeltaNet,CrocoF, DinoF
+from models import DinoDeltaModel, CrocoDeltaNet,CrocoF, DinoF,KeyPointNet
 from utils.losses import * 
 from utils import misc
 from collections import defaultdict
@@ -130,7 +130,8 @@ def bilinear_sample(feat_map, keypoints):
     return sampled.squeeze(-1).squeeze(0).permute(1, 0)  # (N, C)
 
 
-def find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k=1, percentile=35):
+
+def find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k=1):
     """
     Find k nearest neighbors using cosine similarity and return a visibility mask
     based on a percentile threshold of cosine distances.
@@ -159,20 +160,10 @@ def find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k=1, percentile=35):
     x = topk_indices % W
     neighbors_coordinates = [torch.stack([x[i], y[i]], dim=1) for i in range(topk_indices.shape[0])]
 
-    # # Get minimum distances (top-1)
-    # min_distances = dists.gather(1, topk_indices[:, :1]).squeeze(1)  # (N,)
 
-    # # Dynamic threshold from percentile
-    # threshold = torch.quantile(min_distances, percentile / 100.0)
-
-    # # Vectorized visibility mask
-    # visibility_mask = torch.zeros((H, W), dtype=torch.bool, device=feat_px1.device)
-    # valid_keypoints = min_distances < threshold
-    # valid_coords = keypoints1[valid_keypoints].long()  # (M, 2)
-
-    # visibility_mask[valid_coords[:, 1], valid_coords[:, 0]] = True
 
     return topk_indices, neighbors_coordinates
+
 
 def get_valid_frames(valids):
     valid_frames = []
@@ -260,7 +251,7 @@ def inference_loop(processed_pair, model, device="cpu"):
         tgt_tensor, src_tensor = processed_pair
         tgt_tensor = tgt_tensor.unsqueeze(0).to(device)  # shape: (1, 3, 224, 224)
         src_tensor = src_tensor.unsqueeze(0).to(device)
-        feat_target, feat_source  = model(tgt_tensor, src_tensor)
+        feat_target, feat_source = model(tgt_tensor, src_tensor)
     return feat_target, feat_source
         
 
@@ -295,11 +286,11 @@ images  = images_loader(f"{args.dataset_location}/{args.seq_name}/rgbs", valid_f
 
 # Initialize model
 device = "cpu"
-MODEL_WEIGHTS = "/scratch/projects/fouheylab/dma9300/OSNOM/dino_model_epochs_100_ego_points_l2_loss_no_delta/model_loss_l2_epoch_40_val_loss_0.0176.pth"
+MODEL_WEIGHTS = "/scratch/projects/fouheylab/dma9300/OSNOM/croco_model_epochs_50_cosine_loss/model_loss_cosine_epoch_70_val_loss_0.0236.pth"
 
-model = DinoDeltaModel(delta=True)
+model = CrocoDeltaNet(delta =False)
 checkpoint = torch.load(MODEL_WEIGHTS, map_location=device)
-model.load_state_dict(checkpoint)
+model.load_state_dict(checkpoint, strict =False)
 model.to(device)
 model.eval()
 
@@ -311,7 +302,6 @@ axs.imshow(concat_frames)
 offset_x = img_shape[1]
 
 plot_lines = {}
-
 for frame_num, frame_idx in enumerate(valid_frames):
     processed_pair = processed_pairs[frame_num]
 
@@ -322,21 +312,22 @@ for frame_num, frame_idx in enumerate(valid_frames):
         if point_idx not in plot_lines:
             plot_lines[point_idx] = {"coords": []}
 
-        # Get target keypoint from GT and wrap in batch
-        kpts1 = trajs_gt[frame_idx, point_idx]  # (2,)
-        kpts1_tensor = torch.from_numpy(kpts1).to(torch.float32).unsqueeze(0)  # (1, 1, 2)
+        # Initialize kpts1 only at the first frame
+        if frame_num == 0:
+            kpts1 = trajs_gt[frame_idx, point_idx]  # (2,)
+        else:
+            # Use the predicted keypoint from the previous frame
+            kpts1 = kpts2[0][0].cpu().numpy()  # Assuming kpts2 is a list of tensors
+
+        kpts1_tensor = torch.from_numpy(kpts1).to(torch.float32).unsqueeze(0)  # (1, 2)
 
         # Run model
         feat1, feat2 = inference_loop(processed_pair, model)
 
         # Track to next frame
-        if frame_num == 0:
-            x = kpts1[0]
-            y = kpts1[1]
-        else:
-            _, kpts2 = find_nearest_neighbors(feat1, feat2, kpts1_tensor, k=1)
-            x = kpts2[0][0, 0]
-            y = kpts2[0][0, 1]
+        _, kpts2 = find_nearest_neighbors(feat1, feat2, kpts1_tensor, k=1)
+        x = kpts2[0][0, 0].item()
+        y = kpts2[0][0, 1].item()
 
         # Store tracked coordinates with image offset
         plot_lines[point_idx]["coords"].append([(x + (offset_x * frame_num)), y])

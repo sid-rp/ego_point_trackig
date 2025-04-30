@@ -254,6 +254,6 @@ class CroCoNet(nn.Module):
         """
         B, C, H, W = img.size()
         img_info = {'height': H, 'width': W}
-        need_all_layers = False
+        need_all_layers = True
         out, _, _ = self._encode_image(img, do_mask=False, return_all_blocks=need_all_layers)
         return out

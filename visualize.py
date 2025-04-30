@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
 import os
 from datasets import EpicKitchenDataset, EgoPoints
-from models import DinoDeltaModel, CrocoDeltaNet
+from models import DinoDeltaModel, CrocoDeltaNet, KeyPointNet
 from utils.losses import * 
 from utils import misc
 from collections import defaultdict
@@ -210,12 +210,11 @@ def find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k=1, percentile=45):
 #     return topk_indices, neighbors_coordinates, visibility_mask
 
 
-def visualize_model_outputs(image1, image2, feat_px1, feat_px2, keypoints1, keypoints2, kp1_mask, kp2_mask, k=1, save_idx = 0):
+def visualize_model_outputs(image1, image2, feat_px1, feat_px2, keypoints1, keypoints2, kp1_mask, kp2_mask, k=1, save_idx=0):
     """
     Visualize the reduced features, keypoints, nearest neighbors, and visibility masks.
     """
     # Reduce features for visualization
-    
     reduced_feat_px1 = reduce_features_to_rgb(feat_px1)
     reduced_feat_px2 = reduce_features_to_rgb(feat_px2)
 
@@ -225,8 +224,14 @@ def visualize_model_outputs(image1, image2, feat_px1, feat_px2, keypoints1, keyp
     keypoints1 = keypoints1[kp1_mask.squeeze()]
     keypoints2 = keypoints2[kp2_mask.squeeze()]
 
-    feat_px1 = F.normalize(feat_px1, dim=-1) 
-    feat_px2 = F.normalize(feat_px2, dim=-1) 
+    feat_px1_norm = F.normalize(feat_px1, dim=-1) 
+    feat_px2_norm = F.normalize(feat_px2, dim=-1) 
+
+    sampled_feats1 = bilinear_sample(feat_px1_norm, keypoints1)
+    sampled_feats2 = bilinear_sample(feat_px2_norm, keypoints2)
+
+    # Compute cosine similarity between features at keypoints
+    cosine_sim = F.cosine_similarity(sampled_feats1, sampled_feats2, dim=-1)  # (N,)
   
     nearest_neighbors2, coordinates2, visibility_mask2 = find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k)
     nearest_neighbors1, coordinates1, visibility_mask1 = find_nearest_neighbors(feat_px2, feat_px1, keypoints2, k)
@@ -279,12 +284,18 @@ def visualize_model_outputs(image1, image2, feat_px1, feat_px2, keypoints1, keyp
     axes[1, 2].set_title('Visibility Mask (kp2 → feat_px1)')
     axes[1, 2].axis('off')
 
+    # Cosine similarity plot on axes[1, 2]
+    im = axes[1, 2].scatter(keypoints1[:, 0].cpu().numpy(), keypoints1[:, 1].cpu().numpy(),
+                            c=cosine_sim.cpu().numpy(), cmap='hot', marker='x')
+    axes[1, 2].set_title('Cosine Similarity at Keypoints')
+    axes[1, 2].set_xlabel('Keypoint X')
+    axes[1, 2].set_ylabel('Keypoint Y')
+    fig.colorbar(im, ax=axes[1, 2], label='Cosine Similarity')
+
     plt.tight_layout()
     plt.savefig(f"dino_visualization_vis_cosine__{save_idx}.png")
-    # breakpoint()
-    plt.close()
-
     breakpoint()
+    plt.close()
 
 
 
@@ -310,7 +321,7 @@ def visualizer(args):
 
 
     # Initialize model and optimizer
-    model = CrocoDeltaNet(delta =args.use_delta)
+    model = KeyPointNet()
 
 
     # Load weights

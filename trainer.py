@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
 import os
 from datasets import EpicKitchenDataset,EgoPoints
-from models import DinoDeltaModel,CrocoDeltaNet
+from models import DinoDeltaModel,CrocoDeltaNet, CrocoMultiLayerFeatures, KeyPointNet
 from utils.losses import * 
 from utils import misc
 from collections import defaultdict
@@ -194,14 +194,14 @@ def trainer(args):
         model = DinoDeltaModel(delta=args.use_delta).to(device)
     elif args.arch == "croco":
          model  = CrocoDeltaNet(delta=args.use_delta).to(device)
+    elif args.arch == "multi":
+        model = KeyPointNet().to(device)
 
-    def get_param_groups(model, weight_decay=0.05):
+    def get_param_groups(model, weight_decay=0.001):
         decay, no_decay = [], []
         for name, param in model.named_parameters():
             if not param.requires_grad:
                 continue  # frozen weights
-            if name.endswith("bias") or "bn" in name.lower():
-                no_decay.append(param)
             else:
                 decay.append(param)
         return [
@@ -209,7 +209,7 @@ def trainer(args):
             {"params": no_decay, "weight_decay": 0.0},
         ]
     print(model)
-    param_groups = get_param_groups(model, weight_decay=0.05)
+    param_groups = get_param_groups(model, weight_decay=0.001)
 
     optimizer = torch.optim.AdamW(param_groups, lr=args.learning_rate, betas=(0.9, 0.95))
     print(optimizer)
