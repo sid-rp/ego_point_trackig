@@ -6,21 +6,10 @@ This repository contains the implementation of a point tracking system for egoce
 
 Our model is trained on two types of data:
 
-### 1. EgoPoints Dataset
+## EgoPoints Dataset
 
 The EgoPoints dataset can be downloaded online [here](https://ahmaddarkhalil.github.io/EgoPoints/index.html#sec7). This provides a robust foundation of tracked points in egocentric sequences.
 
-### 2. EPIC-Kitchens Curated Data
-
-We curate additional point tracking data from the EPIC-Kitchens dataset. To generate the data:
-
-```bash
-# Generate diverse, overlapping samples from EPIC-Kitchens videos
-python generate_diverse_overlapping_samples_epic.py
-
-# Generate overlapping frame pairs
-python generate_overlapping_pairs_epic.py
-```
 
 ## Model Architecture
 
