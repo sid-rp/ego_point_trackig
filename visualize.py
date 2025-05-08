@@ -152,63 +152,6 @@ def find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k=1, percentile=45):
 
     return topk_indices, neighbors_coordinates, visibility_mask
 
-# def find_nearest_neighbors(feat_px1, feat_px2, keypoints1, k=1, distance_threshold=0.35):
-#     """
-#     Find the k nearest neighbors in feat_px2 for keypoints in feat_px1 using cosine similarity.
-    
-#     Returns:
-#     - nearest_neighbors: Indices of the k nearest neighbors in feat_px2 for each keypoint in feat_px1.
-#     - neighbors_coordinates: Corresponding (x, y) coordinates for top-k neighbors.
-#     - visibility_mask: Boolean mask (224, 224), True at keypoints where distance < threshold.
-#     """
-#     device = feat_px1.device
-#     feat_px1_kps = bilinear_sample(feat_px1, keypoints1)  # (N, 768)
-
-#     # Flatten feat_px2 for similarity comparison
-#     B, C, H, W = feat_px2.shape
-#     feat_px2_flat = feat_px2.view(C, -1).permute(1, 0).cpu().numpy()  # (H*W, 768)
-
-#     # Cosine similarity and distances
-#     sim = cosine_similarity(feat_px1_kps.cpu().numpy(), feat_px2_flat)  # (N, H*W)
-#     sim_tensor = torch.tensor(sim, device=device)  # back to torch
-#     distances = 1 - sim_tensor  # (N, H*W)
-
-    
-
-#     # Top-k indices (for k=1 only below)
-#     topk_indices = torch.argsort(sim_tensor, dim=1, descending=True)[:, :k]  # (N, k)
-
-#     # Top-1 match distances
-#     top1_indices = topk_indices[:, 0]  # (N,)
-#     top1_distances = distances.gather(1, top1_indices.unsqueeze(1)).squeeze(1)  # (N,)
-
-#     # Visibility mask
-#     visibility_mask = torch.zeros((H, W), dtype=torch.bool, device=device)
-#     breakpoint()
-
-
-#     valid_mask = top1_distances < distance_threshold
-#     valid_keypoints = keypoints1[valid_mask]  # (M, 2)
-
-#     # Round to nearest int pixel and clamp to bounds
-#     valid_keypoints_rounded = torch.round(valid_keypoints).long()
-#     valid_keypoints_rounded[:, 0].clamp_(0, W - 1)
-#     valid_keypoints_rounded[:, 1].clamp_(0, H - 1)
-
-#     # Set mask at those locations to True
-#     visibility_mask[valid_keypoints_rounded[:, 1], valid_keypoints_rounded[:, 0]] = True
-
-#     # Convert top-k indices to coordinates
-#     neighbors_coordinates = []
-#     for i in range(topk_indices.shape[0]):
-#         indices = topk_indices[i]
-#         y = torch.div(indices, W, rounding_mode='floor')
-#         x = indices % W
-#         coords = torch.stack([x, y], dim=1)
-#         neighbors_coordinates.append(coords)
-
-#     return topk_indices, neighbors_coordinates, visibility_mask
-
 
 def visualize_model_outputs(image1, image2, feat_px1, feat_px2, keypoints1, keypoints2, kp1_mask, kp2_mask, k=1, save_idx=0):
     """

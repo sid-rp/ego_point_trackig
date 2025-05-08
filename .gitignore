@@ -1,34 +1,44 @@
+# Specific directories
 osnom_2d_features/*
-osnom_2d_features/*
-*.out 
-*.err
-slogs/*
-osnom_output/*
-wandb/*
-slogs/*
-dino_outputs/*
-here_osnom/*
-results_AL/*
-resources/*
-cache_dir/*
-*.png
-*.out
-dino3d_model_epochs_100epochs/*
-dino3d_model_epochs_100epochs_debugs/*
-dino3d_model_epochs_displacement_100epochs/*
-dino3d_model_epochs_displacement_100epochs_debug/*
-features_2d_dino_overlap_threshold_40.0_percent/*
-results_AL/*
-saved_images/*
-dino_outputs/*
+code osnom_3d_features/
+slogs/
+osnom_output/
+wandb/
+dino_outputs/
+here_osnom/
+results_AL/
+resources/
+cache_dir/
+saved_images/
+dino3d_model_epochs_100epochs/
+dino3d_model_epochs_100epochs_debugs/
+dino3d_model_epochs_displacement_100epochs/
+dino3d_model_epochs_displacement_100epochs_debug/
+features_2d_dino_overlap_threshold_40.0_percent/
 croco_model_epochs_50_cosine_loss/
 croco_model_*/
 dino3d_model_*/
 dino_model_*/
-egopoints/*
+egopoints/
+mixture_*/
+
+# Large files and data formats
+*.out
+*.err
+*.pkl
+*.pth
 weights/**.pth
 weights/*.pth
-*.pkl
-*.json
-mixture_*/
+
+# Media files
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.avi
+
+# Large JSON files (over 10MB)
+# Using the Git LFS attribute to track only small JSON files
+*.json filter=lfs diff=lfs merge=lfs -text size=+10M
+# But specifically exclude this one regardless of size
 evaluation_paths.json

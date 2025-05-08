@@ -288,9 +288,9 @@ images  = images_loader(f"{args.dataset_location}/{args.seq_name}/rgbs", valid_f
 device = "cpu"
 MODEL_WEIGHTS = "/scratch/projects/fouheylab/dma9300/OSNOM/croco_model_epochs_50_cosine_loss/model_loss_cosine_epoch_70_val_loss_0.0236.pth"
 
-model = CrocoDeltaNet(delta =False)
-checkpoint = torch.load(MODEL_WEIGHTS, map_location=device)
-model.load_state_dict(checkpoint, strict =False)
+model = DinoF()
+# checkpoint = torch.load(MODEL_WEIGHTS, map_location=device)
+# model.load_state_dict(checkpoint, strict =False)
 model.to(device)
 model.eval()
 
