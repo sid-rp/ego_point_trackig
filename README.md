@@ -2,10 +2,6 @@
 
 This repository contains the implementation of a point tracking system for egocentric videos using Foundational Models like DINOv2 and CroCov2.
 
-## Data Preparation
-
-Our model is trained on two types of data:
-
 ## EgoPoints Dataset
 
 The EgoPoints dataset can be downloaded online [here](https://ahmaddarkhalil.github.io/EgoPoints/index.html#sec7). This provides a robust foundation of tracked points in egocentric sequences.
