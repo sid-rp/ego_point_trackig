@@ -4,7 +4,7 @@ This repository contains the implementation of a point tracking system for egoce
 
 ## EgoPoints Dataset
 
-The EgoPoints dataset can be downloaded online [here](https://ahmaddarkhalil.github.io/EgoPoints/index.html#sec7). This provides sparse point annotations for egocentric egocentric sequences.
+The EgoPoints dataset can be downloaded online [here](https://ahmaddarkhalil.github.io/EgoPoints/index.html#sec7). This provides sparse point annotations for egocentric sequences.
 
 
 ## Model Architecture
